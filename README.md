@@ -1,4 +1,7 @@
-# MLOps Week 6 - CI/CD Deployment to GKE
-Retry deploy Thu Oct 30 09:43:21 UTC 2025
-Retry CD after granting Artifact Registry permissions Thu Oct 30 09:48:18 UTC 2025
-Fixed GCP_SA_KEY JSON format Thu Oct 30 10:12:06 UTC 2025
+# MLOps Week 6 - Continuous Deployment
+
+This project implements Continuous Deployment for the Iris FastAPI app using Docker, GitHub Actions, and Google Kubernetes Engine (GKE).
+
+The CI workflow builds and tests the Docker image, while the CD workflow pushes it to Google Artifact Registry and deploys it to GKE.
+
+Both CI and CD workflows executed successfully, deploying the Iris model API to GKE.
