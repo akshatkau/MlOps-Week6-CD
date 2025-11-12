@@ -1,0 +1,65 @@
+INFO:     Started server process [6589]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+INFO:     Started server process [6838]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+ERROR:    [Errno 98] error while attempting to bind on address ('0.0.0.0', 8000): address already in use
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+{"severity": "INFO", "message": "{"event": "prediction", "trace_id": "951d1b4aa63c85bcf927065d5399ee0e", "input": {"sepal_length": 5.1, "sepal_width": 3.5, "petal_length": 1.4, "petal_width": 0.2}, "result": "setosa", "latency_ms": 74.67, "status": "success"}", "timestamp": "2025-11-12 12:37:00,730"}
+INFO:     127.0.0.1:51470 - "POST /predict HTTP/1.1" 200 OK
+Error while writing to Cloud Trace
+Traceback (most recent call last):
+  File "/opt/conda/lib/python3.10/site-packages/opentelemetry/exporter/cloud_trace/__init__.py", line 197, in export
+    self.client.batch_write_spans(
+  File "/opt/conda/lib/python3.10/site-packages/google/cloud/trace_v2/services/trace_service/client.py", line 553, in batch_write_spans
+    rpc(
+  File "/opt/conda/lib/python3.10/site-packages/google/api_core/gapic_v1/method.py", line 131, in __call__
+    return wrapped_func(*args, **kwargs)
+  File "/opt/conda/lib/python3.10/site-packages/google/api_core/retry/retry_unary.py", line 294, in retry_wrapped_func
+    return retry_target(
+  File "/opt/conda/lib/python3.10/site-packages/google/api_core/retry/retry_unary.py", line 156, in retry_target
+    next_sleep = _retry_error_helper(
+  File "/opt/conda/lib/python3.10/site-packages/google/api_core/retry/retry_base.py", line 214, in _retry_error_helper
+    raise final_exc from source_exc
+  File "/opt/conda/lib/python3.10/site-packages/google/api_core/retry/retry_unary.py", line 147, in retry_target
+    result = target()
+  File "/opt/conda/lib/python3.10/site-packages/google/api_core/timeout.py", line 130, in func_with_timeout
+    return func(*args, **kwargs)
+  File "/opt/conda/lib/python3.10/site-packages/google/api_core/grpc_helpers.py", line 77, in error_remapped_callable
+    raise exceptions.from_grpc_error(exc) from exc
+google.api_core.exceptions.PermissionDenied: 403 Cloud Trace API has not been used in project 1031759898824 before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/cloudtrace.googleapis.com/overview?project=1031759898824 then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry. [reason: "SERVICE_DISABLED"
+domain: "googleapis.com"
+metadata {
+  key: "service"
+  value: "cloudtrace.googleapis.com"
+}
+metadata {
+  key: "serviceTitle"
+  value: "Cloud Trace API"
+}
+metadata {
+  key: "containerInfo"
+  value: "1031759898824"
+}
+metadata {
+  key: "consumer"
+  value: "projects/1031759898824"
+}
+metadata {
+  key: "activationUrl"
+  value: "https://console.developers.google.com/apis/api/cloudtrace.googleapis.com/overview?project=1031759898824"
+}
+, locale: "en-US"
+message: "Cloud Trace API has not been used in project 1031759898824 before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/cloudtrace.googleapis.com/overview?project=1031759898824 then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry."
+, links {
+  description: "Google developers console API activation"
+  url: "https://console.developers.google.com/apis/api/cloudtrace.googleapis.com/overview?project=1031759898824"
+}
+]
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [6589]

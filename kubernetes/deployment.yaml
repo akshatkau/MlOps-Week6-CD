@@ -1,21 +1,39 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: iris-api
+  name: demo-iris-deployment
   labels:
-    app: iris-api
+    app: demo-iris
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
-      app: iris-api
+      app: demo-iris
   template:
     metadata:
       labels:
-        app: iris-api
+        app: demo-iris
     spec:
+      serviceAccountName: telemetry-access   # 👈 links GKE pod to GCP telemetry SA
       containers:
-      - name: iris-api
-        image: us-central1-docker.pkg.dev/gen-lang-client-0761066410/my-repo/iris-api:latest
+      - name: demo-iris
+        image: us-central1-docker.pkg.dev/gen-lang-client-0761066410/my-repo/demo_iris_v2:latest
         ports:
         - containerPort: 8200
+        resources:
+          requests:
+            cpu: "100m"
+          limits:
+            cpu: "500m"
+        livenessProbe:
+          httpGet:
+            path: /live_check
+            port: 8200
+          initialDelaySeconds: 5
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /ready_check
+            port: 8200
+          initialDelaySeconds: 5
+          periodSeconds: 10
