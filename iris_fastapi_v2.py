@@ -136,7 +136,7 @@ async def predict(iris: IrisInput, request: Request):
                 "trace_id": trace_id,
                 "input": {
                     "sepal_length": iris.sepal_length,
-                    "sepal_width":  iris.sepal_width,
+                    "sepal_width": iris.sepal_width,
                     "petal_length": iris.petal_length,
                     "petal_width": iris.petal_width
                 },
