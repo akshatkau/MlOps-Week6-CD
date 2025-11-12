@@ -13,28 +13,33 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
 
-    # Step 1: Decode your base64 GCP key and authenticate
+    # Step 1: Decode and authenticate to Google Cloud
     - name: Decode and authenticate to Google Cloud
       run: |
         echo "${{ secrets.GCP_SA_KEY_BASE64 }}" | base64 --decode > $HOME/gcp-key.json
         gcloud auth activate-service-account --key-file=$HOME/gcp-key.json
         gcloud config set project ${{ secrets.GCP_PROJECT_ID }}
         gcloud config set compute/region ${{ secrets.GCP_REGION }}
-        gcloud components install kubectl --quiet
 
-    # Step 2: Get cluster credentials
+    # Step 2: Install kubectl manually
+    - name: Install kubectl
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y kubectl
+
+    # Step 3: Get cluster credentials
     - name: Get GKE credentials
       run: |
         gcloud container clusters get-credentials demo-log-ml-cluster --zone us-central1-a --project ${{ secrets.GCP_PROJECT_ID }}
 
-    # Step 3: Deploy manifests
+    # Step 4: Deploy to GKE
     - name: Deploy to GKE
       run: |
         kubectl apply -f kubernetes/deployment.yaml
         kubectl apply -f kubernetes/service.yaml
         kubectl apply -f kubernetes/hpa.yaml
 
-    # Step 4: Verify deployment status
+    # Step 5: Verify deployment
     - name: Verify Deployment
       run: |
         kubectl get pods
